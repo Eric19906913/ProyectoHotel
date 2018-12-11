@@ -47,10 +47,10 @@
   jQuery(document).ready(function($){
       table = $('#usuarios').DataTable({
           "ajax": {
-              url : "<?php echo base_url() ?>consulta_controller/ajax_listado",
+              url : "<?php echo base_url() ?>consulta_controller/ajax_listado", //accede al controlador para crear la Datatable
               type : 'GET'
           },
-          language: {
+          language: {//se le pasa un JSON con el "Lenguaje" para cada situacion
               "sProcessing":     "Procesando...",
               "sLengthMenu":     "Mostrar _MENU_ registros",
               "sZeroRecords":    "No se encontraron resultados",
@@ -77,23 +77,22 @@
       });
   });
   function delete_consulta(id)
-  {
+  {//funcion para borrar consultas
       if(confirm('¿Desea borrar la consulta?'))
       {
-          // ajax delete data to database
           $.ajax({
-              url : "<?php echo base_url('consulta_controller/ajax_delete')?>/"+id,
+              url : "<?php echo base_url('consulta_controller/ajax_delete')?>/"+id, // accede al controlador pasand como parametro el id
               type: "POST",
               dataType: "JSON",
               success: function(data)
               {
                   swal("Aviso", "Consulta eliminada con éxito.", "success");
-                  //if success reload ajax table
+                  //aviso de exito
 
                   reload_table();
               },
               error: function (jqXHR, textStatus, errorThrown)
-              {
+              { // aviso si ocurre un error
                   var mensaje = "Error borrando la consulta";
                   if(jqXHR.responseText){
                       mensaje = jqXHR.responseText;
@@ -107,8 +106,8 @@
       }
   }
   function reload_table()
-  {
-      table.ajax.reload(null,false); //reload datatable ajax
+  {//
+      table.ajax.reload(null,false); //recarga Datatable
   }
 
   </script>

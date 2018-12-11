@@ -57,7 +57,7 @@
   </body>
   <script>
   function CheckIn(){
-
+    //trae los valores de cada campo mediante el ID
     var nombre = document.getElementById('nombre').value;
     var apellido = document.getElementById('apellido').value;
     var telefono = document.getElementById('telefono').value;
@@ -67,13 +67,13 @@
     var ocupantes = document.getElementById('ocupantes').value;
     var tipoHabitacion = document.getElementById('tipoHabitacion').value;
     if(nombre === "" || apellido === "" || telefono ==="" || dni ==="" || email ==="" || fechaI ==="" || ocupantes ===""){
-
+      //Verifica que ninguno este vacio!
       document.getElementById('respuesta').innerHTML='<center><strong>Debe completar todos los campos!</strong></center>';
-
+      //Si alguno esta vacio muestra por pantalla un msj
     }else{
     $.ajax({
       type: 'POST',
-      url: '<?php echo base_url() ?>checkIn_controller/Guardar',
+      url: '<?php echo base_url() ?>checkIn_controller/Guardar', //accede al controlador "checkIn_controller" y la funcion Guardar
       data:{
         nombre:nombre,
         apellido:apellido,
@@ -86,11 +86,11 @@
       },
       success:function(data){
         swal("Aviso", "Check In realizado con exito", "success");
-
-        document.getElementById('checkinForm').reset();
+        //Sweet alert aviso de que se hizo el check in
+        document.getElementById('checkinForm').reset();// libera los campos
       },
       error: function(){
-        window.alert('Ocurrio un error');
+        window.alert('Ocurrio un error');//funcion por si ocurre un error
       },
     });
 

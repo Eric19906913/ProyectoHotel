@@ -80,7 +80,7 @@ include_once('header.php');
               <label for="InputConsulta">Su consulta</label>
               <textarea class="form-control" id="consulta" rows="4" placeholder="*Ingrese su consulta aqui" required></textarea>
               <small id="emailHelp" class="form-text text-muted">Nunca compartiremos su informacion con nadie</small>
-              
+
               <button type="button" class="btn btn-primary"onclick="Aceptar()">Aceptar</button>
             </div>
           </div>
@@ -89,20 +89,20 @@ include_once('header.php');
     </body>
 
     <script type="text/javascript">
-      function Aceptar(){
+      function Aceptar(){ //funcion para capturar las consultas!
         var usuario = document.getElementById('usuario').value;
         var email = document.getElementById('email').value;
         var telefono = document.getElementById('telefono').value;
         var consulta = document.getElementById('consulta').value;
 
         if(usuario === "" || email === "" || telefono ==="" || consulta ===""){
-
+          //verifica que no haya un campo vacio
           document.getElementById('respuesta').innerHTML='<center><strong>Debe completar todos los campos!</strong></center>';
 
         }else{
           $.ajax({
             type: 'POST',
-            url: '<?php echo base_url() ?>user_controller/guardar',
+            url: '<?php echo base_url() ?>user_controller/guardar',//llamada al controlador
             datatype: "jsonp",
             data: { user: usuario,
                     correo: email,
@@ -111,12 +111,13 @@ include_once('header.php');
                   },
               success:function(data){
                 document.getElementById('respuesta').innerHTML='<center><strong>Gracias por su consulta '+usuario+'!</strong><br><small>Le responderemos a la brevedad</small></center>';
-                document.getElementById('contactForm').reset();
-                //window.setTimeout(function(){//relocalizar con tiempo. pero para que??
+                document.getElementById('contactForm').reset();//si tiene exito escribe un msj por pantalla y limpia el formulario
+                //window.setTimeout(function(){//relocalizar con tiempo. pero para que??!!!
+                //no sirve porque no tendria sentido usar ajax si se hace esperar!!
                 //window.location.assign('eleccion');
                   //}, 3000);
               },
-              error:function(){
+              error:function(){//msj si falla
                 window.alert('Nuestro servidor esta fallando.. Disculpe las molestias');
               },
 

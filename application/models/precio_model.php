@@ -9,7 +9,7 @@ class Precio_model extends CI_Model{
       $this->load->database();
   }
 
-  public function getAll(){
+  public function getAll(){ // trae todos los precios de la BDD
     $this->db->from($this->table);
     $query = $this->db->get();
     return $query->result();

@@ -13,22 +13,22 @@ class user_model extends CI_Model{
       $this->load->database();
   }
 
-  public function save(){
+  public function save(){ // Funcion para guardar los datos de los usuarios en la BDD
     var_export($_POST);
-    if(!empty($_POST['user']) || !empty($_POST['correo']) || !empty($_POST['phone']) || !empty($_POST['consult'])){
-    $data=array(
-      'User' => $user=$_POST['user'],
+    if(!empty($_POST['user']) || !empty($_POST['correo']) || !empty($_POST['phone']) || !empty($_POST['consult'])){ //Verifica que no vengan vacios
+    $data=array( // array asociativo con los datos que vienen por post
+      'User' => $user=$_POST['user'], // se asigan cada variable a  cada columna de la BDD
       'Email' => $correo=$_POST['correo'],
       'Telefono' => $phone=$_POST['phone'],
       'Consulta' => $consulta=$_POST['consult']
     );
-      $this->db->insert('usuarios', $data);
+      $this->db->insert('usuarios', $data);//se insertan los datos en la BDD
     }else{
       return false;
     }
   }
 
-  private function _get_datatables_query()
+  private function _get_datatables_query() // misma funcion que esta en Checkin model para crear las Datatables
   {
 
       $this->db->from($this->table);
@@ -67,7 +67,7 @@ class user_model extends CI_Model{
   }
 
   function get_datatables()
-  {
+  { //funcion para limitrar la cantidad de datos a mostrar
       $this->_get_datatables_query();
       if(isset($_POST['length']) && $_POST['length'] != -1)
           $this->db->limit($_POST['length'], $_POST['start']);
@@ -76,7 +76,7 @@ class user_model extends CI_Model{
   }
 
   public function get_by_id($id)
-  {
+  {//buscar por ID
       $this->db->from($this->table);
       $this->db->where('id',$id);
       $query = $this->db->get();
@@ -85,13 +85,13 @@ class user_model extends CI_Model{
   }
 
   public function update($where, $data)
-  {
+  {//Buscar un dato para modificarlo y decirle donde esta
       $this->db->update($this->table, $data, $where);
       return $this->db->affected_rows();
   }
 
   public function delete_by_id($id)
-  {
+  {//Borrar por ID
       $this->db->where('id', $id);
       $this->db->delete($this->table);
   }
@@ -100,9 +100,9 @@ class user_model extends CI_Model{
       $this->db->from($this->table);
       $query = $this->db->get();
       return $query->result();
-  }
+  }//Trae todas las consultas de la BDD
 
-  public function get_area_id_by_nombre($nombre){
+  public function get_area_id_by_nombre($nombre){ // busca consultas basandose en el nombre
       $this->db->from($this->table);
       $this->db->where('nombre',$nombre);
       $query = $this->db->get();

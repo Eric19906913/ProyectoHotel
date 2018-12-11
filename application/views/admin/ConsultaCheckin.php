@@ -34,7 +34,7 @@
   var table;
   var save_method;
 
-  jQuery(document).ready(function($){
+  jQuery(document).ready(function($){ //funcion para crear datatables igual que en checkin
       table = $('#checkin').DataTable({
           "ajax": {
               url : "<?php echo base_url() ?>checkin_controller/ajax_listado",
